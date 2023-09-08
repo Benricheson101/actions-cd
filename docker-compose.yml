@@ -3,4 +3,4 @@ services:
     image: 'hashicorp/http-echo'
     ports:
       - 9877:8080
-    command: '-listen=:8080'
+    command: '-listen=:8080 -text=owo'
