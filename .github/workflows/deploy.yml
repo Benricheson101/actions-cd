@@ -14,14 +14,14 @@ jobs:
       - name: 'does this even run???'
         run: "echo 'HELLO???'"
 
-      - name: 'Run deployment'
-        uses: './.github/workflows/deployer.yml'
-        with:
-          environment: 'prod'
-          compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}'
-        secrets:
-          ssh_private_key: '${{secrets.SSH_PRIVATE_KEY}}'
-          ssh_host: '${{secrets.SSH_HOST}}'
-          ssh_user: '${{secrets.SSH_USER}}'
+      # - name: 'Run deployment'
+      #   uses: './.github/workflows/deployer.yml'
+      #   with:
+      #     environment: 'prod'
+      #     compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}'
+      #   secrets:
+      #     ssh_private_key: '${{secrets.SSH_PRIVATE_KEY}}'
+      #     ssh_host: '${{secrets.SSH_HOST}}'
+      #     ssh_user: '${{secrets.SSH_USER}}'
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
