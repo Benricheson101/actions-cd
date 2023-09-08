@@ -16,6 +16,7 @@ jobs:
   deploy_prod:
     name: 'Deploy to Production'
     if: github.ref == 'refs/heads/main'
+    needs: ['deploy_staging']
     uses: './.github/workflows/deployer.yml'
     secrets: inherit
     with:
