@@ -41,6 +41,6 @@ jobs:
         run: |
           docker context use remote
           docker compose pull
-          docker compose -f docker-compose.yml up -d
+          docker compose -f docker-compose.yml up -d --remove-orphans
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
