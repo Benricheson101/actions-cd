@@ -1,0 +1,34 @@
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  deploy:
+    name: 'Automated Deploy'
+    runs-on: 'ubuntu-latest'
+    environment:
+      name: 'prod'
+      url: 'https://pupy.gay'
+
+    steps:
+      - name: 'Write SSH keys'
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_ed25519
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{secrets.SSH_HOST}}" > ~/.ssh/known_hosts
+
+      - name: 'Create Docker context'
+        run: |
+          docker context create remote --docker 'host=ssh://${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}'
+
+      - uses: 'actions/checkout@v4'
+
+      - name: 'Deploy'
+        env:
+          COMPOSE_PROJECT_NAME: '${{vars.COMPOSE_PROJECT_NAME}}'
+        run: |
+          docker context use remote
+          echo $COMPOSE_PROJECT_NAME
+          docker ls
+
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
