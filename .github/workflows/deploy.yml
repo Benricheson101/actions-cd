@@ -28,8 +28,7 @@ jobs:
           COMPOSE_PROJECT_NAME: '${{vars.COMPOSE_PROJECT_NAME}}'
         run: |
           docker context use remote
-          echo $COMPOSE_PROJECT_NAME
-          docker compose ls
+          docker compose pull
           docker compose -f docker-compose.yml up -d
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
