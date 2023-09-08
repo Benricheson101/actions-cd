@@ -9,11 +9,11 @@ on:
         type: 'string'
 
     secrets:
-      ssh_private_key:
+      SSH_PRIVATE_KEY:
         required: true
-      ssh_host:
+      SSH_HOST:
         required: true
-      ssh_user:
+      SSH_USER:
         required: true
 
 jobs:
@@ -26,12 +26,12 @@ jobs:
       - name: 'Write SSH keys'
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_ed25519
-          echo "${{secrets.ssh_private_key}}" > ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{secrets.ssh_host}}" > ~/.ssh/known_hosts
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{secrets.SSH_HOST}}" > ~/.ssh/known_hosts
 
       - name: 'Create Docker context'
         run: |
-          docker context create remote --docker 'host=ssh://${{secrets.ssh_user}}@${{secrets.ssh_host}}'
+          docker context create remote --docker 'host=ssh://${{secrets.SSH_USER}}@${{secrets.ssh_host}}'
 
       - uses: 'actions/checkout@v4'
 

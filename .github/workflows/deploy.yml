@@ -5,23 +5,20 @@ on:
 jobs:
   deploy_prod:
     name: 'Deploy to Production'
-    runs-on: 'ubuntu-latest'
-    environment:
-      name: 'prod'
-      url: 'https://puy.gay'
+    # runs-on: 'ubuntu-latest'
+    # environment:
+    #   name: 'prod'
+    #   url: 'https://puy.gay'
 
-    steps:
-      - name: 'does this even run???'
-        run: "echo 'HELLO???'"
+    uses: './.github/workflows/deployer.yml'
+    secrets: inherit
+    with:
+      environment: 'prod'
+      compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}'
 
-      # - name: 'Run deployment'
-      #   uses: './.github/workflows/deployer.yml'
-      #   with:
-      #     environment: 'prod'
-      #     compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}'
-      #   secrets:
-      #     ssh_private_key: '${{secrets.SSH_PRIVATE_KEY}}'
-      #     ssh_host: '${{secrets.SSH_HOST}}'
-      #     ssh_user: '${{secrets.SSH_USER}}'
+
+    # steps:
+    #   - name: 'does this even run???'
+    #     run: "echo 'HELLO???'"
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
