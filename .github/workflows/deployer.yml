@@ -37,7 +37,7 @@ jobs:
 
       - name: 'Deploy'
         env:
-          COMPOSE_PROJECT_NAME: '${{vars.compose_project_name}}'
+          COMPOSE_PROJECT_NAME: '${{inputs.compose_project_name}}'
         run: |
           docker context use remote
           docker compose pull
