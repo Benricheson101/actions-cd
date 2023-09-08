@@ -1,34 +1,23 @@
 on:
   push:
-    branches: ['main']
+    branches:
+      - 'main'
+      - 'staging'
 
 jobs:
-  deploy:
-    name: 'Automated Deploy'
+  deploy_prod:
+    name: 'Deploy to Production'
     runs-on: 'ubuntu-latest'
-    environment:
-      name: 'prod'
-      url: 'https://pupy.gay'
 
     steps:
-      - name: 'Write SSH keys'
-        run: |
-          install -m 600 -D /dev/null ~/.ssh/id_ed25519
-          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{secrets.SSH_HOST}}" > ~/.ssh/known_hosts
-
-      - name: 'Create Docker context'
-        run: |
-          docker context create remote --docker 'host=ssh://${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}'
-
-      - uses: 'actions/checkout@v4'
-
-      - name: 'Deploy'
-        env:
-          COMPOSE_PROJECT_NAME: '${{vars.COMPOSE_PROJECT_NAME}}'
-        run: |
-          docker context use remote
-          docker compose pull
-          docker compose -f docker-compose.yml up -d
+      - name: 'Run deployment'
+        uses: './.github/workflows/deployer.yml'
+        with:
+          environment: 'prod'
+          compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}'
+        secrets:
+          ssh_private_key: '${{secrets.SSH_PRIVATE_KEY}}'
+          ssh_host: '${{secrets.SSH_HOST}}'
+          ssh_user: '${{secrets.SSH_USER}}'
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json

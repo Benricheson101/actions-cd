@@ -1,9 +1,11 @@
 services:
-  server:
-    image: 'hashicorp/http-echo'
-    ports:
-      - 9877:8080
-    command: '-listen=:8080 -text=owo'
-
   app:
-    image: 'benricheson101/watchtower-test:latest'
+    image: 'hello-world:latest'
+  # server:
+  #   image: 'hashicorp/http-echo'
+  #   ports:
+  #     - 9877:8080
+  #   command: '-listen=:8080 -text=owo'
+
+  # app:
+  #   image: 'benricheson101/watchtower-test:latest'
