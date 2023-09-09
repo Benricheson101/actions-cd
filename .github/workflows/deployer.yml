@@ -47,7 +47,7 @@ jobs:
       - name: 'Deploy'
         env:
           COMPOSE_PROJECT_NAME: '${{inputs.compose_project_name}}'
-          EXTERNAL_PORT: '${{inputs.external_port}}'
+          EXTERNAL_PORT: '${{vars.EXTERNAL_PORT}}'
         run: |
           docker context use remote
           # docker compose pull
