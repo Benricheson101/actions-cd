@@ -15,6 +15,7 @@ const server = createServer(async (req, res) => {
     method: req.method,
     url: req.url,
     body,
+    headers: req.headers,
   };
 
   res
