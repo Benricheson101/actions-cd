@@ -10,7 +10,6 @@ jobs:
     permissions:
       packages: 'write'
       contents: 'read'
-
     uses: './.github/workflows/builder.yml'
 
   deploy_staging:

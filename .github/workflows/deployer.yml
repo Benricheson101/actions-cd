@@ -31,7 +31,6 @@ jobs:
     environment: '${{inputs.environment}}'
 
     steps:
-      - run: "echo '${{toJson(vars)}}'"
       - name: 'Write SSH keys'
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_ed25519
@@ -50,9 +49,6 @@ jobs:
           EXTERNAL_PORT: '${{vars.EXTERNAL_PORT}}'
         run: |
           docker context use remote
-          # docker compose pull
-
-          echo $EXTERNAL_PORT
 
           if [ ${{inputs.build_compose_images}} = true ]; then
             docker compose -f docker-compose.yml up -d --remove-orphans --build

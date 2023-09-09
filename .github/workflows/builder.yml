@@ -22,3 +22,5 @@ jobs:
       - name: 'Push Docker images'
         run: |
           docker compose push
+
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
