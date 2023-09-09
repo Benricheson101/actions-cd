@@ -7,10 +7,6 @@ on:
 
 jobs:
   build_docker:
-    permissions:
-      packages: 'write'
-      contents: 'read'
-
     name: 'Build Docker images'
     runs-on: 'ubuntu-latest'
 
