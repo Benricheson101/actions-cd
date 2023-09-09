@@ -11,6 +11,10 @@ on:
         required: false
         type: 'boolean'
         default: false
+      external_port:
+        required: false
+        type: 'number'
+        default: 9877
 
     secrets:
       SSH_PRIVATE_KEY:
@@ -42,6 +46,7 @@ jobs:
       - name: 'Deploy'
         env:
           COMPOSE_PROJECT_NAME: '${{inputs.compose_project_name}}'
+          EXTERNAL_PORT: '${{inputs.external_port}}'
         run: |
           docker context use remote
           # docker compose pull
