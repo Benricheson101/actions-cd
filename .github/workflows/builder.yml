@@ -20,6 +20,5 @@ jobs:
           password: '${{ secrets.GITHUB_TOKEN }}'
 
       - name: 'Push Docker images'
-        needs: ['login']
         run: |
           docker compose push
