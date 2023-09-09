@@ -12,8 +12,6 @@ jobs:
       contents: 'read'
 
     uses: './.github/workflows/builder.yml'
-    with:
-      should_push: "${{github.ref == 'refs/heads/main'}}"
 
   deploy_staging:
     name: 'Deploy to Staging'
