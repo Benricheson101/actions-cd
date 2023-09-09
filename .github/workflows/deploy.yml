@@ -5,6 +5,14 @@ on:
       - 'staging'
 
 jobs:
+  build_and_push_docker:
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      packages: 'write'
+      contents: 'read'
+
+    uses: './.github/workflows/builder.yml'
+
   deploy_staging:
     name: 'Deploy to Staging'
     uses: './.github/workflows/deployer.yml'
@@ -12,11 +20,18 @@ jobs:
     with:
       environment: 'staging'
       compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}-staging'
+      build_compose_images: true
 
   deploy_prod:
     name: 'Deploy to Production'
+    permissions:
+      packages: 'write'
+      contents: 'read'
+
     if: github.ref == 'refs/heads/main'
-    needs: ['deploy_staging']
+    needs:
+      - 'deploy_staging'
+      - 'build_and_push_docker'
     uses: './.github/workflows/deployer.yml'
     secrets: inherit
     with:

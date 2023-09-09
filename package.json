@@ -1,0 +1,19 @@
+{
+  "name": "echo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/src/index.js",
+  "scripts": {
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "build": "tsc",
+    "fmt": "gts fix"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "gts": "^5.0.1",
+    "typescript": "~5.1.6",
+    "@types/node": "20.4.6"
+  }
+}
