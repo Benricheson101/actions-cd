@@ -1,7 +1,6 @@
 services:
   app:
     image: 'hello-world:latest'
-    asdkfjaskldf
   # server:
   #   image: 'hashicorp/http-echo'
   #   ports:
