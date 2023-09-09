@@ -51,6 +51,8 @@ jobs:
           docker context use remote
           # docker compose pull
 
+          echo $EXTERNAL_PORT
+
           if [ ${{inputs.build_compose_images}} = true ]; then
             docker compose -f docker-compose.yml up -d --remove-orphans --build
           else
