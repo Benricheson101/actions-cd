@@ -5,14 +5,14 @@ on:
       - 'staging'
 
 jobs:
-  build:
-    permissions:
-      packages: 'write'
-      contents: 'read'
+  # build:
+  #   permissions:
+  #     packages: 'write'
+  #     contents: 'read'
 
-    uses: './.github/workflows/builder.yml'
-    with:
-      should_push: true
+  #   uses: './.github/workflows/builder.yml'
+  #   with:
+  #     should_push: "${{github.ref == 'refs/heads/main'}}"
 
   deploy_staging:
     name: 'Deploy to Staging'
@@ -26,6 +26,10 @@ jobs:
 
   deploy_prod:
     name: 'Deploy to Production'
+    permissions:
+      packages: 'write'
+      contents: 'read'
+
     if: github.ref == 'refs/heads/main'
     needs:
       - 'deploy_staging'
@@ -34,5 +38,6 @@ jobs:
     with:
       environment: 'prod'
       compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}'
+      push_image: true
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json

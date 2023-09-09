@@ -7,6 +7,10 @@ on:
       compose_project_name:
         required: true
         type: 'string'
+      push_image:
+        required: false
+        type: 'boolean'
+        default: false
 
     secrets:
       SSH_PRIVATE_KEY:
@@ -33,7 +37,13 @@ jobs:
         run: |
           docker context create remote --docker 'host=ssh://${{secrets.SSH_USER}}@${{secrets.ssh_host}}'
 
-      - uses: 'actions/checkout@v4'
+      # - uses: 'actions/checkout@v4'
+
+      - name: 'Build image and push to Docker hub'
+        if: 'inputs.push_image'
+        uses: './.github/workflows/builder.yml'
+        with:
+          should_push: true
 
       - name: 'Deploy'
         env:
@@ -41,6 +51,11 @@ jobs:
         run: |
           docker context use remote
           # docker compose pull
-          docker compose -f docker-compose.yml up -d --remove-orphans
+
+          if [ ${{inputs.push_image}} = true ]; then
+            docker compose -f docker-compose.yml up -d --remove-orphans
+          else
+            docker compose -f docker-compose.yml up -d --remove-orphans --build
+          fi
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
