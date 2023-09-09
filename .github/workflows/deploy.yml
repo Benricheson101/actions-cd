@@ -5,8 +5,13 @@ on:
       - 'staging'
 
 jobs:
+  build:
+    uses: './.github/workflows/builder.yml'
+
   deploy_staging:
     name: 'Deploy to Staging'
+    needs:
+      - 'build'
     uses: './.github/workflows/deployer.yml'
     secrets: inherit
     with:
@@ -16,7 +21,9 @@ jobs:
   deploy_prod:
     name: 'Deploy to Production'
     if: github.ref == 'refs/heads/main'
-    needs: ['deploy_staging']
+    needs:
+      - 'build'
+      - 'deploy_staging'
     uses: './.github/workflows/deployer.yml'
     secrets: inherit
     with:

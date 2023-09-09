@@ -40,7 +40,7 @@ jobs:
           COMPOSE_PROJECT_NAME: '${{inputs.compose_project_name}}'
         run: |
           docker context use remote
-          docker compose pull
+          # docker compose pull
           docker compose -f docker-compose.yml up -d --remove-orphans
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json

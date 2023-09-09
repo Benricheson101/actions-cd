@@ -1,0 +1,14 @@
+on:
+  workflow_call:
+
+jobs:
+  build_docker:
+    name: 'Build Docker images'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - uses: 'actions/checkout@v4'
+
+      - run: |
+          docker compose -f docker-compose.build.yml build
+
