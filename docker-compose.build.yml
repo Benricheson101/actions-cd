@@ -1,4 +1,4 @@
 services:
   app:
     build: '.'
-    image: 'benricheson101/echo-server'
+    image: 'ghcr.io/benricheson101/echo-server'

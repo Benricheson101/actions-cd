@@ -1,5 +1,6 @@
 services:
   app:
-    image: 'benricheson101/echo-server:latest'
+    build: '.'
+    image: 'ghcr.io/benricheson101/echo-server:latest'
     ports:
       - '9878:3000'
