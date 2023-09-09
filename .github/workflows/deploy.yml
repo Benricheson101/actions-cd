@@ -5,6 +5,11 @@ on:
       - 'staging'
 
 jobs:
+  j:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - run: "echo '${{toJson(vars)}}'"
+
   build_and_push_docker:
     if: github.ref == 'refs/heads/main'
     permissions:
@@ -21,6 +26,7 @@ jobs:
       environment: 'staging'
       compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}-staging'
       build_compose_images: true
+      external_port: 8943
 
   deploy_prod:
     name: 'Deploy to Production'
