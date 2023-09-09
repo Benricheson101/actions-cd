@@ -7,7 +7,7 @@ on:
       compose_project_name:
         required: true
         type: 'string'
-      push_image:
+      build_compose_images:
         required: false
         type: 'boolean'
         default: false
@@ -37,14 +37,6 @@ jobs:
         run: |
           docker context create remote --docker 'host=ssh://${{secrets.SSH_USER}}@${{secrets.ssh_host}}'
 
-      # - uses: 'actions/checkout@v4'
-
-      - name: 'Build image and push to Docker hub'
-        if: 'inputs.push_image'
-        uses: './.github/workflows/builder.yml'
-        with:
-          should_push: true
-
       - name: 'Deploy'
         env:
           COMPOSE_PROJECT_NAME: '${{inputs.compose_project_name}}'
@@ -52,10 +44,10 @@ jobs:
           docker context use remote
           # docker compose pull
 
-          if [ ${{inputs.push_image}} = true ]; then
-            docker compose -f docker-compose.yml up -d --remove-orphans
-          else
+          if [ ${{inputs.build_compose_images}} = true ]; then
             docker compose -f docker-compose.yml up -d --remove-orphans --build
+          else
+            docker compose -f docker-compose.yml up -d --remove-orphans
           fi
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
