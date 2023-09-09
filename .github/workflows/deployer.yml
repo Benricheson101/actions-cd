@@ -13,8 +13,8 @@ on:
         default: false
       external_port:
         required: false
-        type: 'number'
-        default: 9877
+        type: 'string'
+        default: '9877'
 
     secrets:
       SSH_PRIVATE_KEY:
