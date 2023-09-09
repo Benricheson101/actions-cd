@@ -3,4 +3,4 @@ services:
     build: '.'
     image: 'ghcr.io/benricheson101/echo-server:latest'
     ports:
-      - '${EXTERNAL_PORT:-9878}:3000'
+      - '${EXTERNAL_PORT:-9877}:3000'

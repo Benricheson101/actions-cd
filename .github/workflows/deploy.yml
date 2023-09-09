@@ -5,6 +5,11 @@ on:
       - 'staging'
 
 jobs:
+  j:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - run: echo ${{toJson(vars)}}
+
   build_and_push_docker:
     if: github.ref == 'refs/heads/main'
     permissions:
