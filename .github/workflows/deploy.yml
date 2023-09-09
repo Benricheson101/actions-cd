@@ -37,5 +37,6 @@ jobs:
     with:
       environment: 'prod'
       compose_project_name: '${{vars.COMPOSE_PROJECT_NAME}}'
+      external_port: '${{vars.EXTERNAL_PORT}}'
 
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
